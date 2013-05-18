@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			cal_tv.setText("Tapped");
+			cal_tv.setText("TAPPED");
 		}
 	};
 	
