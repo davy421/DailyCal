@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -12,13 +13,11 @@
         android:id="@+id/cal_add_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/cal_add_button"
         android:ems="10"
         android:hint="@string/cal_add_hint"
         android:inputType="number"
-        android:maxLength="4" >
+        android:maxLength="4"
+        android:imeOptions="actionDone" >
 
         <requestFocus />
     </EditText>
@@ -27,182 +26,14 @@
         android:id="@+id/cal_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/cal_add_edit"
-        android:layout_alignRight="@+id/input_list"
-        android:layout_alignTop="@+id/cal_add_edit"
         android:text="@string/cal_add_button_hint" />
     
     <ListView
         android:id="@+id/input_list"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/cal_add_button" >
-
+        android:layout_height="200dp" >
     </ListView>
     
-    <TableLayout
-        android:id="@+id/macros_table"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/input_list"
-        android:stretchColumns="1" >
-        
-        <!-- Explanation row -->
-        <TableRow>
-            <!-- Macro name column -->
-            <TextView 
-                android:text="@string/macros_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:background="@color/gray" />
-            
-            <!-- Daily goal column -->
-            <TextView 
-                android:text="@string/goal_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:background="@color/gray" />
-            
-            <!-- Cals consumed column -->
-            <TextView 
-                android:text="@string/consumed_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:background="@color/gray" />
-        </TableRow>
-        
-        <!-- Calories row -->
-        <TableRow>
-            <!-- Macro name column -->
-            <TextView 
-                android:text="@string/calorie_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1" />
-            
-            <!-- Daily goal column -->
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:hint="@string/default_hint" />
-            
-            <!-- Cals consumed column -->
-            <TextView
-                android:id="@+id/cal_text"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:text="@string/starting_value" />
-        </TableRow>
-        
-        <!-- Carbs row -->
-        <TableRow>
-            <!-- Macro name column -->
-            <TextView 
-                android:text="@string/carb_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1" />
-            
-            <!-- Daily goal column -->
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:hint="@string/default_hint" />
-            
-            <!-- Carbs consumed column -->
-            <TextView
-                android:id="@+id/carb_text"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:text="@string/starting_value" />
-        </TableRow>
-        
-        <!-- Protein row -->
-        <TableRow>
-            <!-- Macro name column -->
-            <TextView 
-                android:text="@string/protein_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1" />
-            
-            <!-- Daily goal column -->
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:hint="@string/default_hint" />
-            
-            <!-- Protein consumed column -->
-            <TextView
-                android:id="@+id/protein_text"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:text="@string/starting_value" />
-        </TableRow>
-        
-        <!-- Fats row -->
-        <TableRow>
-            <!-- Macro name column -->
-            <TextView 
-                android:text="@string/fat_label"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1" />
-            
-            <!-- Daily goal column -->
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1" />
-            
-            <!-- Fats consumed column -->
-            <TextView
-                android:id="@+id/fat_text"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:layout_margin="4dip"
-                android:layout_weight="1"
-                android:text="@string/starting_value" />
-        </TableRow>
-        
-    </TableLayout>
+    <!-- The contents of TableLayout and TableLayout itself are included programmatically -->
     
-</RelativeLayout>
+</TableLayout>
