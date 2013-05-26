@@ -16,5 +16,6 @@
     <color name="gray">#C0C0C0</color>
     <string name="default_hint">Default</string>
     <string name="starting_value">0</string>
+    <string name="wipe_data">Wipe data</string>
 
 </resources>

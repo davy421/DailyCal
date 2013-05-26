@@ -229,9 +229,14 @@ public class MainActivity extends Activity {
 		switch(item.getItemId()) {
 		case R.id.input_history:
 			Intent intent = new Intent(activity, InputHistoryActivity.class);
-			intent.putExtra("input_list_calls", MyUtility.convertStringToArray(input_list_cals));
+			intent.putExtra("input_list_cals", MyUtility.convertStringToArray(input_list_cals));
 			startActivity(intent);
 			return  true;
+		case R.id.wipe_data:
+			input_list_cals = "0";
+			rows.get(1).setColumnText(2, "-");
+			rows.get(1).setColumnText(3, "-");
+			return true;
 		default: 
 			return super.onOptionsItemSelected(item);
 		}

@@ -19,16 +19,16 @@ public class InputHistoryActivity extends Activity {
 		setContentView(R.layout.activity_input_history);
 
 		Intent intent = getIntent();
-		String[] values = intent.getExtras().getStringArray("input_list_calls");
+		String[] values = intent.getExtras().getStringArray("input_list_cals");
 
 		// Setting up ListView
 		ListView cal_list = (ListView) findViewById(R.id.input_list);
 		input_adapter = new ArrayAdapter<Input>(this,
 				android.R.layout.simple_dropdown_item_1line, input_list);
 		cal_list.setAdapter(input_adapter);
-
+		
 		for (int i = 0; i < values.length; i++) {
-			if(!values[i].equals("0")) {
+			if(values[i].charAt(0) != '0') {
 				Input input_ob = new Input();
 				input_ob.setCalories(values[i]);
 				input_adapter.add(input_ob);
