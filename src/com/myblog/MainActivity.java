@@ -1,30 +1,28 @@
 package com.myblog;
 
 import java.util.ArrayList;
-import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
-	private List<Input> input_list = new ArrayList<Input>();
-	private ArrayAdapter<Input> input_adapter = null;
 	private ArrayList<TableRowXML> rows = null;
 	private Activity activity;
 	private EditText add_edit;
+	private String input_list_cals;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +40,11 @@ public class MainActivity extends Activity {
 		Button add_button = (Button)findViewById(R.id.cal_add_button);
 		add_button.setOnClickListener(onCalAdd);
 		
-		//Setting up ListView
-		ListView cal_list = (ListView)findViewById(R.id.input_list);
-		input_adapter = new ArrayAdapter<Input>(this, android.R.layout.simple_dropdown_item_1line, input_list);
-		cal_list.setAdapter(input_adapter);
+		//Default value for Listview's first item
+		input_list_cals = "0";
+		
+		//To be populated macro_table
+		TableLayout macro_table = (TableLayout)activity.findViewById(R.id.macro_table);
 		
 		//Setting up table rows
 		rows = new ArrayList<TableRowXML>();
@@ -87,6 +86,9 @@ public class MainActivity extends Activity {
 				//Setting up colors for unused columns
 				for(int j = 2; j < n_columns; j++) rows.get(i).setColumnColor(j, Color.argb(90, 150, 228, 255));
 			}
+			
+			//Populating macro_table
+			macro_table.addView(rows.get(i).getRow());
 		}
 		
 		//Setting up values for dynamic columns
@@ -100,17 +102,9 @@ public class MainActivity extends Activity {
 		for(int i = 2; i < rows.size(); i++)
 			rows.get(i).setColumnText(1, values[i+1]);
 		
-		AlertDialog.Builder alert = new AlertDialog.Builder(activity);
-		alert.setTitle(MyUtility.readFromFile(activity, "dynamic_values", "-"));
-		alert.show();
-		
-		//Loading up ListView values	
-		for(int i = 6; i < values.length; i++) {
-			Input input_ob = new Input();
-			input_ob.setCalories(values[i]);
-			input_adapter.add(input_ob);
-		}
-			
+		//Loading up ListView values
+		for(int i = 6; i < values.length; i++)
+			input_list_cals += "," + values[i];
 	}
 	
 	private int calsHad(int added_cals) {
@@ -152,12 +146,8 @@ public class MainActivity extends Activity {
 			//Modifying the calories Left column
 			rows.get(1).setColumnText(3, String.valueOf(calsLeft(cals_had)));
 			
-			//Adding input to adapter
-			Input input_ob = new Input();
-			
-			//Input history
-			input_ob.setCalories(added_cals);
-			input_adapter.add(input_ob);
+			//Adding new values to ListView
+			input_list_cals += "," + added_cals;
 		}
 	}
 	
@@ -211,8 +201,10 @@ public class MainActivity extends Activity {
 		}
 		
 		//Getting ListView values
-		for(int i = 0; i < input_list.size(); i++) {
-			value += "," + input_list.get(i).getCalories();
+		String[] input_list = MyUtility.convertStringToArray(input_list_cals);
+		
+		for(int i = 0; i < input_list.length; i++) {
+			value += "," + input_list[i];
 		}
 			
 		MyUtility.writeToFile(activity, "dynamic_values", value);
@@ -230,5 +222,18 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()) {
+		case R.id.input_history:
+			Intent intent = new Intent(activity, InputHistoryActivity.class);
+			intent.putExtra("input_list_calls", MyUtility.convertStringToArray(input_list_cals));
+			startActivity(intent);
+			return  true;
+		default: 
+			return super.onOptionsItemSelected(item);
+		}
+	}
 }

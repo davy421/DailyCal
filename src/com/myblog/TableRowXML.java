@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 public class TableRowXML {
 	
+	private TableRow table_row;
 	private ArrayList<TextView> columns;
 	private Activity activity;
 	private TableLayout base_layout;
@@ -36,13 +37,13 @@ public class TableRowXML {
 		
 		columns = new ArrayList<TextView>();
 		
-		//To be populated Base Layout
+		//Further use for Base Layout, to adjust column width and margins
 		base_layout = (TableLayout)activity.findViewById(R.id.base_layout);
 		
 		int col_width = columnWidth(n_columns, col_margin);
 		
 		//To be populated TableRow
-		TableRow table_row = new TableRow(activity);
+		table_row = new TableRow(activity);
 		TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT);
 		rowParams.setMargins(0, 0, 0, row_margin);
 		table_row.setLayoutParams(rowParams);
@@ -78,9 +79,6 @@ public class TableRowXML {
 			
 			table_row.addView(columns.get(i));
 		}
-		
-		//Populating Base Layout
-		base_layout.addView(table_row);
 	}
 	
 	private int columnWidth(int n, int margin) {
@@ -148,6 +146,10 @@ public class TableRowXML {
 			alert.show();
 		}
 	};
+	
+	public TableRow getRow() {
+		return table_row;
+	}
 	
 	public String getColumnText(int index) {
 		return columns.get(index).getText().toString();

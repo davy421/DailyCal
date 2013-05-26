@@ -28,12 +28,12 @@
         android:layout_height="wrap_content"
         android:text="@string/cal_add_button_hint" />
     
-    <ListView
-        android:id="@+id/input_list"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp" >
-    </ListView>
-    
-    <!-- The contents of TableLayout and TableLayout itself are included programmatically -->
-    
+     <!-- Further table_layout contents are included programmatically -->
+    <TableLayout 
+        android:id="@+id/macro_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+    </TableLayout>
+  
 </TableLayout>
